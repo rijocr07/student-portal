@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Semester Marks Calculation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  body {
+    background: #f1f5f9;
+    font-family: system-ui, sans-serif;
+    padding-bottom: 40px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    color: #fff;
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .card {
+    border: none;
+    border-radius: 18px;
+  }
+
+  .result-box {
+    background: #e0e7ff !important;
+    border-radius: 14px;
+    padding: 16px;
+    display: none;
+  }
+
+  .result-box h2 {
+    color: #1e40af;
+  }
+
+  .fw-pass {
+    color: green;
+  }
+
+  .fw-fail {
+    color: red;
+  }
+  .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+  border-radius: 20px 20px 0 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.nav-item i {
+  font-size: 20px;
+}
+
+.nav-item.active {
+  color: #2563eb;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h5 class="mb-0">Semester Marks Calculation</h5>
+  <small>Internal + Semester Marks → Total (100)</small>
+</div>
+
+<div class="container mt-4">
+
+  <!-- Internal Inputs -->
+  <div class="card shadow-sm p-4 mb-4">
+    <h6 class="fw-semibold mb-3">Internal Marks (calculate for 40)</h6>
+
+    <div class="mb-3">
+      <label class="form-label">Assignment 1 (out of 100)</label>
+      <input type="number" id="a1" class="form-control" min="0" max="100">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Internal 1 (out of 100)</label>
+      <input type="number" id="i1" class="form-control" min="0" max="100">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Assignment 2 (out of 100)</label>
+      <input type="number" id="a2" class="form-control" min="0" max="100">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Internal 2 (out of 100)</label>
+      <input type="number" id="i2" class="form-control" min="0" max="100">
+    </div>
+  </div>
+
+  <!-- Semester Mark Input -->
+  <div class="card shadow-sm p-4 mb-4">
+    <h6 class="fw-semibold mb-3">Semester Marks (Expected out of 100)</h6>
+
+    <div class="mb-3">
+      <label class="form-label">Semester Marks (out of 100)</label>
+      <input type="number" id="semMark" class="form-control" min="0" max="100">
+    </div>
+  </div>
+
+  <!-- Calculate Button -->
+  <button class="btn btn-primary w-100 mb-3" onclick="calculateSemester()">
+    Calculate Total Marks
+  </button>
+
+  <!-- RESULT -->
+  <div class="result-box text-center" id="resultBox">
+    <h6 class="mb-1">Internal Marks (40) + Semester Marks (60)</h6>
+    <h2 id="totalMark" class="fw-bold">0</h2>
+    <h4 id="status" class="fw-bold"></h4>
+  </div>
+
+</div>
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item" onclick="goHome()">
+    <i class="bi bi-house"></i>
+    <div>Home</div>
+  </div>
+  <div class="nav-item active">
+    <i class="bi bi-bar-chart"></i>
+    <div>Marks</div>
+  </div>
+  <div class="nav-item" onclick="goNotes()">
+    <i class="bi bi-journal"></i>
+    <div>Notes</div>
+  </div>
+  <div class="nav-item" onclick="goProfile()">
+    <i class="bi bi-person"></i>
+    <div>Profile</div>
+  </div>
+</div>
+
+<script>
+function calculateSemester() {
+  const a1 = Number(document.getElementById("a1").value);
+  const i1 = Number(document.getElementById("i1").value);
+  const a2 = Number(document.getElementById("a2").value);
+  const i2 = Number(document.getElementById("i2").value);
+  const sem = Number(document.getElementById("semMark").value);
+
+  if ([a1,i1,a2,i2,sem].some(v => isNaN(v) || v < 0 || v > 100)) {
+    alert("Please enter valid marks (0-100) for all fields");
+    return;
+  }
+
+  // Convert Internals to 40
+  const a1_40 = a1 * 40 / 100;
+  const i1_40 = i1 * 60 / 100;
+  const a2_40 = a2 * 40 / 100;
+  const i2_40 = i2 * 60 / 100;
+
+  const totalInternal200 = a1_40 + i1_40 + a2_40 + i2_40; // out of 200
+  const internal40 = (totalInternal200 / 200) * 40;
+
+  // Convert Semester to 60
+  const semester60 = (sem / 100) * 60;
+
+  const total100 = internal40 + semester60;
+
+  document.getElementById("totalMark").innerText = total100.toFixed(2);
+
+  // Pass/Fail
+  const statusEl = document.getElementById("status");
+  if(total100 >= 45) {
+    statusEl.innerText = "PASS";
+    statusEl.className = "fw-bold fw-pass";
+  } else {
+    statusEl.innerText = "FAIL";
+    statusEl.className = "fw-bold fw-fail";
+  }
+
+  document.getElementById("resultBox").style.display = "block";
+}
+function goHome() { location.href = "home.html"; }
+function goNotes() { location.href = "notes.html"; }
+function goProfile() { location.href = "profile.html"; }
+</script>
+
+</body>
+</html>

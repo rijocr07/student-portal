@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f1f5f9;
+      padding-bottom: 90px;
+      font-family: system-ui, sans-serif;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2563eb, #1e3a8a);
+      color: white;
+      padding: 24px;
+      border-radius: 0 0 28px 28px;
+    }
+
+    .profile-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+    }
+
+    .empty-discover {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6b7280;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 0;
+      box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .nav-item {
+      text-align: center;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    .nav-item i {
+      font-size: 20px;
+    }
+
+    .nav-item.active {
+      color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="d-flex align-items-center">
+    <img id="profilePic" src="https://via.placeholder.com/64" class="profile-img">
+    <div class="ms-3">
+      <h5 id="studentName" class="mb-0"></h5>
+      <small>Computer Science Engineering</small>
+    </div>
+  </div>
+</div>
+
+<!-- DISCOVER -->
+<div class="container mt-4">
+  <h6 class="fw-semibold mb-3">Discover</h6>
+
+  <div id="discoverContainer"></div>
+</div>
+
+<!-- QUICK ACTIONS -->
+<div class="container mt-4">
+  <div class="row g-3">
+    <div class="col-6">
+      <div class="card shadow-sm p-3 text-center" onclick="goMarks()">
+        <i class="bi bi-bar-chart fs-3 text-primary"></i>
+        <p class="mt-2 fw-semibold mb-0">Marks</p>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card shadow-sm p-3 text-center" onclick="goNotes()">
+        <i class="bi bi-journal-text fs-3 text-primary"></i>
+        <p class="mt-2 fw-semibold mb-0">Notes</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item active">
+    <i class="bi bi-house"></i>
+    <div>Home</div>
+  </div>
+  <div class="nav-item" onclick="goMarks()">
+    <i class="bi bi-bar-chart"></i>
+    <div>Marks</div>
+  </div>
+  <div class="nav-item" onclick="goNotes()">
+    <i class="bi bi-journal"></i>
+    <div>Notes</div>
+  </div>
+  <div class="nav-item" onclick="goProfile()">
+    <i class="bi bi-person"></i>
+    <div>Profile</div>
+  </div>
+</div>
+
+<script>
+  // Load student name
+  document.getElementById("studentName").innerText =
+    localStorage.getItem("studentName") || "Student";
+
+  // Load profile photo if exists
+  const photo = localStorage.getItem("profilePhoto");
+  if (photo) document.getElementById("profilePic").src = photo;
+
+  // Discover logic
+  const discoverData = JSON.parse(localStorage.getItem("discoverPosts") || "[]");
+  const container = document.getElementById("discoverContainer");
+
+  if (discoverData.length === 0) {
+    container.innerHTML = `
+      <div class="card empty-discover shadow-sm">
+        <i class="bi bi-compass fs-1 mb-3"></i>
+        <p class="mb-1 fw-semibold">Nothing here yet</p>
+        <small>Discover content will appear here soon</small>
+      </div>
+    `;
+  } else {
+    discoverData.forEach(post => {
+      container.innerHTML += `
+        <div class="card shadow-sm p-3 mb-3">
+          <h6 class="fw-semibold">${post.title}</h6>
+          <p class="text-muted mb-0">${post.description}</p>
+        </div>
+      `;
+    });
+  }
+
+  function goMarks(){ location.href="marks.html"; }
+  function goNotes(){ location.href="notes.html"; }
+  function goProfile(){ location.href="profile.html"; }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Notes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  body {
+    background: #f1f5f9;
+    font-family: system-ui, sans-serif;
+    padding-bottom: 90px;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2563eb, #1e3a8a);
+    color: #fff;
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+  }
+
+  .course-card {
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  .course-icon {
+    width: 40px;
+    height: 40px;
+    background: #e0e7ff;
+    color: #2563eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .nav-item {
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+
+  .nav-item i {
+    font-size: 20px;
+  }
+
+  .nav-item.active {
+    color: #2563eb;
+  }
+
+  h5.section-title {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h5 class="mb-0">Notes</h5>
+  <small>View notes</small>
+</div>
+
+<div class="container mt-4">
+
+  <!-- Theory Courses -->
+  <h5 class="section-title">Theory Courses</h5>
+  <div class="row g-3">
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Statics and Numerical Methods')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">1</div>
+          <div>Statics and Numerical Methods</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Basic Electrical and Electronics Engineering')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">2</div>
+          <div>Basic Electrical and Electronics Engineering</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Programming in C')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">3</div>
+          <div>Programming in C</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Engineering Graphics')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">4</div>
+          <div>Engineering Graphics</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Tumbles and Technology')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">5</div>
+          <div>Tamils and Technology</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theory Courses with Practical -->
+  <h5 class="section-title">Theory Courses with Practical</h5>
+  <div class="row g-3">
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Technical English')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">6</div>
+          <div>Technical English</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Physics for Information Science')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">7</div>
+          <div>Physics for Information Science</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Environment and Sustainability')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">8</div>
+          <div>Environment and Sustainability</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Practical Courses -->
+  <h5 class="section-title">Practical Courses</h5>
+  <div class="row g-3">
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('C Programming Laboratory')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">9</div>
+          <div>C Programming Laboratory</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="card course-card p-3" onclick="openNotes('Engineering Practices Laboratory')">
+        <div class="d-flex align-items-center">
+          <div class="course-icon me-3">10</div>
+          <div>Engineering Practices Laboratory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item" onclick="goHome()">
+    <i class="bi bi-house"></i>
+    <div>Home</div>
+  </div>
+  <div class="nav-item" onclick="goMarks()">
+    <i class="bi bi-bar-chart"></i>
+    <div>Marks</div>
+  </div>
+  <div class="nav-item active">
+    <i class="bi bi-journal"></i>
+    <div>Notes</div>
+  </div>
+  <div class="nav-item" onclick="goProfile()">
+    <i class="bi bi-person"></i>
+    <div>Profile</div>
+  </div>
+</div>
+
+<script>
+function openNotes(course) {
+  alert("Notes for: " + course + "\nContent will be added dynamically later.");
+}
+
+function goHome(){ location.href="home.html"; }
+function goMarks(){ location.href="marks.html"; }
+function goProfile(){ location.href="profile.html"; }
+</script>
+
+</body>
+</html>

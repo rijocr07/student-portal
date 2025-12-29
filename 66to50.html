@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>66 → 50 Converter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+  body {
+    background:#f1f5f9;
+    font-family: system-ui, sans-serif;
+    padding-bottom:40px;
+  }
+
+  .header {
+    background:linear-gradient(135deg,#2563eb,#1e3a8a);
+    color:white;
+    padding:22px;
+    border-radius:0 0 26px 26px;
+  }
+
+  .card {
+    border:none;
+    border-radius:18px;
+  }
+
+  .result-box {
+    background:#eef2ff;
+    border-radius:16px;
+    padding:18px;
+    display:none;
+  }
+  .bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+  border-radius: 20px 20px 0 0;
+  z-index: 1000;
+}
+
+.nav-item {
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.nav-item i {
+  font-size: 20px;
+}
+
+.nav-item.active {
+  color: #2563eb;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h5 class="mb-0">Marks Converter</h5>
+  <small>Convert marks from 66 to 50</small>
+</div>
+
+<!-- FORM -->
+<div class="container mt-4">
+
+  <div class="card shadow-sm p-4">
+
+    <div class="mb-3">
+      <label class="form-label">Marks (out of 66)</label>
+      <input type="number" id="mark66" class="form-control" min="0" max="66" placeholder="Enter marks">
+    </div>
+
+    <button class="btn btn-primary w-100" onclick="convert()">
+      Convert to 50
+    </button>
+
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-box mt-4 text-center" id="resultBox">
+    <p class="text-muted mb-1">Converted Mark (out of 50)</p>
+    <h2 class="fw-bold text-success" id="mark50"></h2>
+  </div>
+
+</div>
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item" onclick="goHome()">
+    <i class="bi bi-house"></i>
+    <div>Home</div>
+  </div>
+  <div class="nav-item active">
+    <i class="bi bi-bar-chart"></i>
+    <div>Marks</div>
+  </div>
+  <div class="nav-item" onclick="goNotes()">
+    <i class="bi bi-journal"></i>
+    <div>Notes</div>
+  </div>
+  <div class="nav-item" onclick="goProfile()">
+    <i class="bi bi-person"></i>
+    <div>Profile</div>
+  </div>
+</div>
+
+<script>
+function convert() {
+  let mark66 = Number(document.getElementById("mark66").value);
+
+  if (isNaN(mark66) || mark66 < 0 || mark66 > 66) {
+    alert("Please enter a valid mark between 0 and 66");
+    return;
+  }
+
+  let mark50 = (mark66 / 66) * 50;
+
+  document.getElementById("mark50").innerText = mark50.toFixed(2);
+  document.getElementById("resultBox").style.display = "block";
+}
+function goHome() { location.href = "home.html"; }
+function goNotes() { location.href = "notes.html"; }
+function goProfile() { location.href = "profile.html"; }
+</script>
+
+</body>
+</html>
